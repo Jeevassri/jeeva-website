@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #d9534f; /* Blood Red */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding doesn't affect overall width */
+        }
+
+        button {
+            background-color: #d9534f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #c9302c;
+        }
+
+        #message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            display: none; /* Initially hidden */
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>❤️ Donor Registration</h2>
+    <form id="donationForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="bloodGroup">Blood Group</label>
+        <select id="bloodGroup" name="bloodGroup" required>
+            <option value="">-- Select --</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+        </select>
+
+        <label for="location">City/Location</label>
+        <input type="text" id="location" name="location" required>
+
+        <button type="submit">Register to Donate</button>
+    </form>
+
+    <div id="message"></div>
+</div>
+
+<script>
+    // 1. Get a reference to the form element
+    const form = document.getElementById('donationForm');
+    const messageDiv = document.getElementById('message');
+
+    // 2. Add an event listener for the form submission
+    form.addEventListener('submit', function(event) {
+        // Prevent the default form submission behavior (which reloads the page)
+        event.preventDefault();
+
+        // Simple form validation check (optional, but good practice)
+        if (!form.checkValidity()) {
+            // If the browser validation fails (e.g., required field is empty),
+            // you could show a custom error message here.
+            return;
+        }
+
+        // 3. Collect the data from the form fields
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const bloodGroup = document.getElementById('bloodGroup').value;
+        const location = document.getElementById('location').value;
+
+        // 4. In a real system, you would send this data to a server using the Fetch API (e.g., a POST request).
+        // Example of what the data structure might look like:
+        const donorData = {
+            name: name,
+            email: email,
+            bloodGroup: bloodGroup,
+            location: location
+        };
+
+        // --- Simulated Success Response ---
+        console.log('Donor data submitted:', donorData);
+
+        // 5. Update the message area for the user
+        messageDiv.textContent = `Thank you, ${name}! Your registration for blood group ${bloodGroup} has been received. We will contact you soon.`;
+        messageDiv.className = 'success'; // Apply the green/success style
+        messageDiv.style.display = 'block'; // Make the message visible
+
+        // 6. Clear the form fields after successful submission
+        form.reset();
+
+        // In a real application, you would handle network errors and loading states as well.
+    });
+</script>
+</body>
+</html>
